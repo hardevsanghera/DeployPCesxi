@@ -21,9 +21,9 @@ vc_datastore: "default-container-99999999999999" #EDIT this
 
 # Static IP details for newly deployed PC
 eth0_IPADDR: "{{ pc_new_ip }}"
-eth0_PREFIX: "26"                       #EDIT this
-eth0_GATEWAY: "10.38.9.65"              #EDIT this
-eth0_DNS1: "10.42.194.10"               #EDIT this
+eth0_PREFIX: "24"                       #EDIT this
+eth0_GATEWAY: "10.9.9.1"                #EDIT this
+eth0_DNS1: "10.9.9.99"                 #EDIT this
 
 # Do not edit
 sdir: "scratch"                                          

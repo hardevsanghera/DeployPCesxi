@@ -1,5 +1,5 @@
 ---
-- name: Add a host
+- name: Dynamically add a host (in init_pc_cluster)
   add_host:
     hostname: "{{ pc_new_ip }}"
     ansible_user: "{{ ans_user }}"

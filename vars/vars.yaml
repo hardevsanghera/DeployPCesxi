@@ -1,0 +1,30 @@
+#
+# Nutanix PE cluster details
+nutanix_host_pe: "10.9.9.8"             #EDIT this
+nutanix_username_pe: "nutanix"         
+nutanix_password_pe: "clusterpw"        #EDIT this
+
+# For the PC to be deployed
+pc_new_ip: "10.9.9.10"                  #EDIT this
+ans_user: "nutanix"                     #freshly deployed PC userid
+ans_password: "nutanix/4u"              #freshly deployed PC password
+new_pc_admin_pw : "newpw"               #EDIT this
+
+# vCenter Access details
+vc_hostname: "10.9.9.9"                 #EDIT this
+vc_username: "userid@mydomain.local"    #EDIT this
+vc_password: "password"                 #EDIT this
+vc_ovf: ~/Downloads/pc.2022.6.0.10.ova  #EDIT this
+vc_name: "PC-SS"                        #EDIT this
+vc_datacenter: "AAAAAA"                 #EDIT this
+vc_datastore: "default-container-99999999999999" #EDIT this
+
+# Static IP details for newly deployed PC
+eth0_IPADDR: "{{ pc_new_ip }}"
+eth0_PREFIX: "26"                       #EDIT this
+eth0_GATEWAY: "10.38.9.65"              #EDIT this
+eth0_DNS1: "10.42.194.10"               #EDIT this
+
+# Do not edit
+sdir: "scratch"                                          
+tdir: "tasks" 

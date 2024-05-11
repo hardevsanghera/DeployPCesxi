@@ -1,0 +1,4 @@
+nutanixdc.local
+
+[workstation]
+10.38.9.77 ansible_user=nutanix ansible_password=nutanix/4u ansible_connection=ssh

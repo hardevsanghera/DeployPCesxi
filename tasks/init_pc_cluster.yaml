@@ -1,0 +1,11 @@
+---
+- name: Add a host
+  add_host:
+    hostname: "{{ pc_new_ip }}"
+    ansible_user: "{{ ans_user }}"
+    ansible_password: "{{ ans_password }}"
+    ansible_connection: ssh
+
+- name: Build the PC cluster
+  shell: /usr/local/nutanix/cluster/bin/cluster --cluster_function_list="multicluster" -s {{pc_new_ip}} create
+  delegate_to: "{{pc_new_ip}}"

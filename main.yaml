@@ -1,0 +1,67 @@
+---
+# hardev.sanghera@nutanix.com August 2023
+- name: Setup Prism Central on vSphere
+  hosts: localhost
+  gather_facts: False
+  vars_files:
+    - vars/vars.yaml
+  collections:
+    - nutanix.ncp
+    - community.vmware
+  module_defaults:
+    group/nutanix.ncp.ntnx:
+      nutanix_host: "{{ nutanix_host_pe }}"
+      nutanix_username: "{{ nutanix_username_pe }}"
+      nutanix_password: "{{ nutanix_password_pe }}"
+      validate_certs: false
+
+  tasks:
+
+    - name: Deploy Prism Central OVA
+      import_tasks: "{{ tdir }}/deploy_ova.yaml"
+
+#    - meta: end_play 
+
+    - name: Pause to allow OVA to deply, poweron and initialize
+      ansible.builtin.pause:
+        minutes: 35
+
+    - name: Get IP of PC
+      import_tasks: "{{ tdir }}/get_ip_vmw.yaml"
+
+    - name: Pause to allow IP change
+      ansible.builtin.pause:
+        minutes: 15
+
+    - name: Dynamically add unconfigured PC
+      add_host:
+        hostname: "{{ pc_new_ip }}"
+        ansible_user: "{{ ans_user }}"
+        ansible_password: "{{ ans_password }}"
+        ansible_connection: ssh
+
+    - name: Initialize the PC cluster
+      import_tasks: "{{ tdir }}/init_pc_cluster.yaml"
+
+    - name: Pause to allow PC to initialize
+      ansible.builtin.pause:
+        minutes: 35     
+
+    - name: change the PC admin password
+      import_tasks: "{{ tdir }}/set_pc_pw.yaml"
+
+    - name: Accept EULA, disable Pulse
+      import_tasks: "{{ tdir }}/eula_pulse_tasks.yaml"
+
+    - name: Register cluster with PC
+      import_tasks: "{{ tdir }}/add_cluster_to_pc.yaml"
+
+    - name: Enable Apps in PC (Self service / Calm)
+      import_tasks: "{{ tdir }}/enable_ss_calm.yaml"
+
+#   - meta: end_play    
+   
+    - debug:
+        msg:
+         - "All done."
+

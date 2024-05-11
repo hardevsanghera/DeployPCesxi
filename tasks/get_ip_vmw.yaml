@@ -1,0 +1,67 @@
+---
+- name: Gather one specific VM
+  community.vmware.vmware_vm_info:
+    hostname: "{{ vc_hostname }}"
+    username: "{{ vc_username }}"
+    password: "{{ vc_password }}"
+    vm_name:  "{{ vc_name }}"
+    validate_certs: false
+  delegate_to: localhost
+  register: vminfo
+
+- debug:
+    var: vminfo.virtual_machines[0].ip_address
+
+- set_fact:
+    pc_initial_ip: "{{ vminfo.virtual_machines[0].ip_address }}"
+
+- name: Dynamically add unconfigured PC
+  add_host:
+    hostname: "{{ pc_initial_ip }}"
+    ansible_user: "nutanix"
+    ansible_password: "nutanix/4u"
+    ansible_connection: ssh
+
+- name: date test
+  shell:
+    bash -ilc "hostname; date; echo boo"
+  register: got_output
+  delegate_to: "{{pc_initial_ip}}"
+
+- debug:
+    var: got_output
+
+#- name: Change admin password
+#  command: echo -e 'Ntnx.2006\nNtnx.2006' | sudo passwd admin
+#  delegate_to: "{{pc_initial_ip}}"
+    
+
+- name: Template the eth0 changes script
+  template:
+    src: new_ifcfg_eth0.j2
+    dest: "{{ sdir }}/set_static_ip.sh"
+
+- name: Execute script to set static IP address
+  script:
+    "{{ sdir }}/set_static_ip.sh"
+  #register: shell_out
+  delegate_to: "{{ pc_initial_ip }}"
+
+#- debug:
+#    var: shell_out
+#For the following reboot as the IP address has changed it will wait forever so added the reboot_timeout
+#To continue we must add the new IP address and wait for the IP change to take place.
+#- name: Reboot now
+#  raw: "reboot now"
+#  ignore_unreachable: true
+#  delegate_to: "{{ pc_initial_ip }}"
+#  become: true
+
+# REBOOT DOES NOT WORK
+- name: Reboot required
+  shell: "(touch hardevabcd; /bin/sleep 15 && sudo /sbin/reboot &) &"
+  ignore_errors: true
+  delegate_to: "{{ pc_initial_ip }}"
+
+#- name: Wait for PC - with new IP address
+#  local_action: wait_for_host host="{{ pc_new_ip }}" delay=16 state=started port="{{ ansible_port}}" connect_timeout=10 timeout=180

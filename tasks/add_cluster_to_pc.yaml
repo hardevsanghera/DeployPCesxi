@@ -1,0 +1,17 @@
+---
+    - name: Dynamically add new PC
+      add_host:
+        hostname: "{{ nutanix_host_pe }}"
+        ansible_user: "{{ nutanix_username_pe }}"
+        ansible_password: "{{ nutanix_password_pe }}"
+        ansible_connection: ssh
+
+    - name: Add target Cluster to PC
+      shell:
+         bash -ilc "/home/nutanix/prism/cli/ncli multicluster register-to-prism-central external-ip-address-or-svm-ips={{ pc_new_ip }} username=admin password='{{ new_pc_admin_pw }}'"
+      register: pe_added
+      delegate_to: "{{ nutanix_host_pe }}"
+
+    - name: Pause (wait) for PE to be added to PC
+      pause:
+        seconds: 90

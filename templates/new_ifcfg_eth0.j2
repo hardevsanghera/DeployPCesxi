@@ -1,0 +1,9 @@
+#!/bin/bash
+set -x
+sudo sed -i 's/127.0.0.1 NTNX/\#127.0.0.1 NTNX/g' /etc/hosts
+ftc="/etc/sysconfig/network-scripts/ifcfg-eth0"
+sudo sed -i 's/BOOTPROTO=dhcp/BOOTPROTO=none/g' $ftc
+sudo bash -c "echo 'IPADDR={{ eth0_IPADDR }}' >> $ftc"
+sudo bash -c "echo 'PREFIX={{ eth0_PREFIX }}' >> $ftc"
+sudo bash -c "echo 'GATEWAY={{ eth0_GATEWAY}}' >> $ftc"
+sudo bash -c "echo 'DNS1={{ eth0_DNS1 }}' >> $ftc"

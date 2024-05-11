@@ -1,0 +1,23 @@
+---
+
+- name: Enable Self Service / Calm
+  local_action:
+    module: uri
+    url: "https://{{ pc_new_ip }}:9440/api/nutanix/v3/services/nucalm"
+    method: POST
+    url_username: "admin"
+    url_password: "{{ new_pc_admin_pw  }}"
+    validate_certs: no
+    return_content: yes
+    status_code: 202
+    body_format: json
+    body: |
+      {
+        "enable_nutanix_apps": true,
+        "state": "ENABLE",
+        "enable_lite": false,
+        "perform_validation_only": false
+      }
+    force_basic_auth: yes
+  check_mode: false
+  register: result

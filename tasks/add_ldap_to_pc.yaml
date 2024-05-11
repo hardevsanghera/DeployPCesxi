@@ -1,0 +1,88 @@
+---
+- name: Add LDAP to PC
+  local_action:
+    module: uri
+    url: "https:{{ pc_new_ip }}:9440/api/nutanix/v3/directory_services/"
+    method: POST
+    url_username: "admin"
+    url_password: "Ntnx.2006"
+    validate_certs: no
+    return_content: yes
+    status_code: 200
+    body_format: json
+    body: |
+      {
+        "spec": {
+          "name": "string",
+          "resources": {
+            "open_ldap_configuration": {
+              "user_configuration": {
+                "user_search_base": "string",
+                "user_object_class": "string",
+                "username_attribute": "string"
+              },
+              "user_group_configuration": {
+                "group_search_base": "string",
+                "group_member_attribute": "string",
+                "group_object_class": "string",
+                "group_member_attribute_value": "string"
+              }
+            },
+            "url": "string",
+            "directory_type": "string",
+            "admin_user_reference_list": [
+              {
+                "uuid": "string"
+              }
+            ],
+            "domain_name": "string",
+            "service_account": {
+              "username": "string",
+              "password": "string"
+            },
+            "admin_group_reference_list": [
+              {
+                "uuid": "string"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "use_categories_mapping": false,
+          "uuid": "string",
+          "project_reference": {
+            "uuid": "string"
+          },
+          "spec_version": 0,
+          "spec_hash": "string",
+          "categories_mapping": {
+            "additionalProp1": [
+              "string"
+            ],
+            "additionalProp2": [
+              "string"
+            ],
+            "additionalProp3": [
+              "string"
+            ]
+          },
+          "should_force_translate": true,
+          "owner_reference": {
+            "uuid": "string"
+          },
+          "categories": {
+            "additionalProp1": "string",
+            "additionalProp2": "string",
+            "additionalProp3": "string"
+          }
+        }
+      }
+  check_mode: false
+  register: result
+
+
+#- name: Show result of the POST call
+#  debug:
+#    msg: 
+#     - "{{ result }}"
+#  check_mode: false

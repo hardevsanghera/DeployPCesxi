@@ -1,0 +1,11 @@
+---
+- name: Dynamically add new PC
+  add_host:
+    hostname: "{{ pc_new_ip }}"
+    ansible_user: "{{ ans_user }}"
+    ansible_password: "{{ ans_password }}"
+    ansible_connection: ssh
+
+- name: Change PC admin password
+  shell: /home/nutanix/prism/cli/ncli user reset-password user-name=admin password="{{ new_pc_admin_pw }}"
+  delegate_to: "{{pc_new_ip}}"

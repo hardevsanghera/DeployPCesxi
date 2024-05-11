@@ -1,0 +1,14 @@
+---
+# Deploy OVA
+    - name: Deploy OVA
+      community.vmware.vmware_deploy_ovf:
+        hostname: "{{ vc_hostname }}"
+        username: "{{ vc_username }}"
+        password: "{{ vc_password }}"
+        ovf: "{{ vc_ovf }}"
+        name: "{{ vc_name }}"
+        datacenter: "{{ vc_datacenter }}"
+        datastore: "{{ vc_datastore }}"
+        validate_certs: False
+        wait_for_ip_address: true
+      delegate_to: localhost

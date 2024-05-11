@@ -1,5 +1,5 @@
 ---
-- name: Dynamically add new PC
+- name: Dynamically add new PC (in set_pc_password)
   add_host:
     hostname: "{{ pc_new_ip }}"
     ansible_user: "{{ ans_user }}"

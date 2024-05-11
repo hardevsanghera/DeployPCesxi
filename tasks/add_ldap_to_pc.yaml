@@ -1,4 +1,5 @@
 ---
+# SCAFFOLD CODE - NOT YET IMPLEMENTED
 - name: Add LDAP to PC
   local_action:
     module: uri

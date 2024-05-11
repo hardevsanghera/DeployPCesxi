@@ -2,6 +2,8 @@ Version: 1.0
 1 May 2024
 hardev.sanghera@nutanix.com
 
+***** THIS PLAYBOOK DOES NOT RUN WITHOUT SOME "NURSING" - IT IS NOT FULLY AUTOMATIC, WIP *****
+
 RUN THIS PLAY BOOK WITH ARGS:
 ansible-playbook -vv --scp-extra-args='-O'
 Still can't get reboot to work

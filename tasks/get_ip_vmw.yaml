@@ -15,7 +15,7 @@
 - set_fact:
     pc_initial_ip: "{{ vminfo.virtual_machines[0].ip_address }}"
 
-- name: Dynamically add unconfigured PC
+- name: Dynamically add unconfigured PC (in get_ip_vmw)
   add_host:
     hostname: "{{ pc_initial_ip }}"
     ansible_user: "nutanix"

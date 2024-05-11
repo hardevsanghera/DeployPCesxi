@@ -33,7 +33,7 @@
       ansible.builtin.pause:
         minutes: 15
 
-    - name: Dynamically add unconfigured PC
+    - name: Dynamically add unconfigured PC (in main)
       add_host:
         hostname: "{{ pc_new_ip }}"
         ansible_user: "{{ ans_user }}"

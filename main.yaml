@@ -24,14 +24,14 @@
 
     - name: Pause to allow OVA to deply, poweron and initialize
       ansible.builtin.pause:
-        minutes: 35
+        minutes: 25
 
     - name: Get IP of PC
       import_tasks: "{{ tdir }}/get_ip_vmw.yaml"
 
     - name: Pause to allow IP change
       ansible.builtin.pause:
-        minutes: 15
+        minutes: 10
 
     - name: Dynamically add unconfigured PC (in main)
       add_host:
@@ -45,7 +45,7 @@
 
     - name: Pause to allow PC to initialize
       ansible.builtin.pause:
-        minutes: 35     
+        minutes: 15   
 
     - name: change the PC admin password
       import_tasks: "{{ tdir }}/set_pc_pw.yaml"
@@ -57,9 +57,7 @@
       import_tasks: "{{ tdir }}/add_cluster_to_pc.yaml"
 
     - name: Enable Apps in PC (Self service / Calm)
-      import_tasks: "{{ tdir }}/enable_ss_calm.yaml"
-
-#   - meta: end_play    
+      import_tasks: "{{ tdir }}/enable_ss_calm.yaml" 
    
     - debug:
         msg:

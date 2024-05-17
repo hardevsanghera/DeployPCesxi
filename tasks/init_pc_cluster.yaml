@@ -9,5 +9,6 @@
 - name: Build the PC cluster
   shell: /usr/local/nutanix/cluster/bin/cluster --cluster_function_list="multicluster" -s {{pc_new_ip}} create
   delegate_to: "{{pc_new_ip}}"
+  ignore_unreachable: true
   vars:
-    command_timeout: 1200
+    command_timeout: 2000

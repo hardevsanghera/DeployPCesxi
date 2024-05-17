@@ -24,7 +24,7 @@
 
     - name: Pause to allow OVA to deply, poweron and initialize
       ansible.builtin.pause:
-        minutes: 25
+        minutes: 20
 
     - name: Get IP of PC
       import_tasks: "{{ tdir }}/get_ip_vmw.yaml"
@@ -45,7 +45,7 @@
 
     - name: Pause to allow PC to initialize
       ansible.builtin.pause:
-        minutes: 15   
+        minutes: 6   
 
     - name: change the PC admin password
       import_tasks: "{{ tdir }}/set_pc_pw.yaml"

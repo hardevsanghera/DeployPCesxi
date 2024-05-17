@@ -51,17 +51,12 @@
 #    var: shell_out
 #For the following reboot as the IP address has changed it will wait forever so added the reboot_timeout
 #To continue we must add the new IP address and wait for the IP change to take place.
-#- name: Reboot now
-#  raw: "reboot now"
-#  ignore_unreachable: true
-#  delegate_to: "{{ pc_initial_ip }}"
-#  become: true
-
-# REBOOT DOES NOT WORK
-- name: Reboot required
-  shell: "(touch hardevabcd; /bin/sleep 15 && sudo /sbin/reboot &) &"
-  ignore_errors: true
+- name: reboot and return
+  shell: shutdown -r 1
+  become: true
+  ignore_errors: yes
+  failed_when: false
   delegate_to: "{{ pc_initial_ip }}"
 
-#- name: Wait for PC - with new IP address
-#  local_action: wait_for_host host="{{ pc_new_ip }}" delay=16 state=started port="{{ ansible_port}}" connect_timeout=10 timeout=180
+- name: Wait for PC - with new IP address
+  local_action: wait_for host="{{ pc_new_ip }}" delay=16 state=started connect_timeout=10 timeout=180

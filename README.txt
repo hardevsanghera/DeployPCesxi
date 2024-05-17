@@ -4,12 +4,6 @@ hardev.sanghera@nutanix.com
 
 ***** THIS PLAYBOOK DOES NOT RUN WITHOUT SOME "NURSING" - IT IS NOT FULLY AUTOMATIC, WIP *****
 
-RUN THIS PLAY BOOK WITH ARGS:
-ansible-playbook -vv --scp-extra-args='-O'
-Still can't get reboot to work
-but it does look like it all works now - even if you have to step thru execution
-Once PC initialized and all services up get a red exit from the task
-
 TO GET STARTED
 
 WHAT YOU GET

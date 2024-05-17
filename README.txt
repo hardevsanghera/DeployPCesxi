@@ -4,6 +4,8 @@ hardev.sanghera@nutanix.com
 
 ***** THIS PLAYBOOK DOES NOT RUN WITHOUT SOME "NURSING" - IT IS NOT FULLY AUTOMATIC, WIP *****
 
+Still need to execute $rm ~/.ssh/know_hosts if repeating playbook, .cfg file has check host keys to false?!?
+
 TO GET STARTED
 
 WHAT YOU GET

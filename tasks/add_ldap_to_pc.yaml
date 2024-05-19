@@ -28,6 +28,7 @@
             "kind": "directory_service"
           }
       }
+    force_basic_auth: yesy
   check_mode: false
   register: result
 

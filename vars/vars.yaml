@@ -9,6 +9,8 @@ pc_new_ip: "10.9.9.10"                  #EDIT this
 ans_user: "nutanix"                     #freshly deployed PC userid
 ans_password: "nutanix/4u"              #freshly deployed PC password
 new_pc_admin_pw : "newpw"               #EDIT this
+ldap_url: "ldaps://10."
+ldap_password: "password"
 
 # vCenter Access details
 vc_hostname: "10.9.9.9"                 #EDIT this

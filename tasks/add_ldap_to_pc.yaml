@@ -1,82 +1,32 @@
 ---
-# SCAFFOLD CODE - NOT YET IMPLEMENTED
 - name: Add LDAP to PC
   local_action:
     module: uri
-    url: "https:{{ pc_new_ip }}:9440/api/nutanix/v3/directory_services/"
+    url: "https://{{ pc_new_ip }}:9440/api/nutanix/v3/directory_services"
     method: POST
     url_username: "admin"
-    url_password: "Ntnx.2006"
+    url_password: "nx2Tech321!"
     validate_certs: no
     return_content: yes
-    status_code: 200
+    status_code: 202
     body_format: json
     body: |
       {
-        "spec": {
-          "name": "string",
-          "resources": {
-            "open_ldap_configuration": {
-              "user_configuration": {
-                "user_search_base": "string",
-                "user_object_class": "string",
-                "username_attribute": "string"
-              },
-              "user_group_configuration": {
-                "group_search_base": "string",
-                "group_member_attribute": "string",
-                "group_object_class": "string",
-                "group_member_attribute_value": "string"
+          "spec": {
+              "name": "lab",
+              "resources": {
+                  "url": "ldaps://10.",
+                  "directory_type": "ACTIVE_DIRECTORY",
+                  "domain_name": "lab.local",
+                  "service_account": {
+                      "username": "admin@lab.local",
+                      "password": "password"
+                  }
               }
-            },
-            "url": "string",
-            "directory_type": "string",
-            "admin_user_reference_list": [
-              {
-                "uuid": "string"
-              }
-            ],
-            "domain_name": "string",
-            "service_account": {
-              "username": "string",
-              "password": "string"
-            },
-            "admin_group_reference_list": [
-              {
-                "uuid": "string"
-              }
-            ]
+          },
+          "metadata": {
+            "kind": "directory_service"
           }
-        },
-        "metadata": {
-          "use_categories_mapping": false,
-          "uuid": "string",
-          "project_reference": {
-            "uuid": "string"
-          },
-          "spec_version": 0,
-          "spec_hash": "string",
-          "categories_mapping": {
-            "additionalProp1": [
-              "string"
-            ],
-            "additionalProp2": [
-              "string"
-            ],
-            "additionalProp3": [
-              "string"
-            ]
-          },
-          "should_force_translate": true,
-          "owner_reference": {
-            "uuid": "string"
-          },
-          "categories": {
-            "additionalProp1": "string",
-            "additionalProp2": "string",
-            "additionalProp3": "string"
-          }
-        }
       }
   check_mode: false
   register: result

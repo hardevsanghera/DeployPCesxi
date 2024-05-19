@@ -56,6 +56,9 @@
     - name: Register cluster with PC
       import_tasks: "{{ tdir }}/add_cluster_to_pc.yaml"
 
+    - name: Register LDAP with PC
+      import_tasks: "{{ tdir }}/add_ldap_to_pc.yaml"
+
     - name: Enable Apps in PC (Self service / Calm)
       import_tasks: "{{ tdir }}/enable_ss_calm.yaml" 
    

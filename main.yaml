@@ -1,5 +1,5 @@
 ---
-# hardev.sanghera@nutanix.com August 2023
+# hardev.sanghera@nutanix.com May 2024
 - name: Setup Prism Central on vSphere
   hosts: localhost
   gather_facts: False
@@ -20,18 +20,16 @@
     - name: Deploy Prism Central OVA
       import_tasks: "{{ tdir }}/deploy_ova.yaml"
 
-#    - meta: end_play 
-
-    - name: Pause to allow OVA to deply, poweron and initialize
+    - name: Pause to allow OVA to deploy, poweron and initialize
       ansible.builtin.pause:
-        minutes: 20
+        minutes: 15
 
     - name: Get IP of PC
       import_tasks: "{{ tdir }}/get_ip_vmw.yaml"
 
     - name: Pause to allow IP change
       ansible.builtin.pause:
-        minutes: 10
+        minutes: 8
 
     - name: Dynamically add unconfigured PC (in main)
       add_host:
@@ -43,9 +41,9 @@
     - name: Initialize the PC cluster
       import_tasks: "{{ tdir }}/init_pc_cluster.yaml"
 
-    - name: Pause to allow PC to initialize
+    - name: Pause to allow PC complete initialization
       ansible.builtin.pause:
-        minutes: 6   
+        minutes: 5  
 
     - name: change the PC admin password
       import_tasks: "{{ tdir }}/set_pc_pw.yaml"
@@ -65,4 +63,3 @@
     - debug:
         msg:
          - "All done."
-

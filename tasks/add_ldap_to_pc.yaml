@@ -5,7 +5,7 @@
     url: "https://{{ pc_new_ip }}:9440/api/nutanix/v3/directory_services"
     method: POST
     url_username: "admin"
-    url_password: "nx2Tech321!"
+    url_password: "{{ new_pc_admin_pw }}"
     validate_certs: no
     return_content: yes
     status_code: 202
@@ -13,14 +13,14 @@
     body: |
       {
           "spec": {
-              "name": "lab",
+              "name": "{{ ldap_name }}",
               "resources": {
-                  "url": "ldaps://10.",
+                  "url": "{{ ldap_url }}",
                   "directory_type": "ACTIVE_DIRECTORY",
-                  "domain_name": "lab.local",
+                  "domain_name": "{{ ldap_domain }}",
                   "service_account": {
-                      "username": "admin@lab.local",
-                      "password": "password"
+                      "username": "{{ ldap_username }}",
+                      "password": "{{ ldap_pw }}"
                   }
               }
           },
@@ -28,7 +28,7 @@
             "kind": "directory_service"
           }
       }
-    force_basic_auth: yesy
+    force_basic_auth: yes
   check_mode: false
   register: result
 

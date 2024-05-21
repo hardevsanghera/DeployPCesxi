@@ -1,0 +1,30 @@
+---
+# hardev.sanghera@nutanix.com May 2024
+- name: Deploy OVA(s) on vSphere
+  hosts: localhost
+  gather_facts: False
+  vars_files:
+    - vars/vars.yaml
+  collections:
+    - community.vmware
+
+  tasks:
+  
+    - name: Deploy OVA
+      community.vmware.vmware_deploy_ovf:
+        hostname: "{{ vc_hostname }}"
+        username: "{{ vc_username }}"
+        password: "{{ vc_password }}"
+        ovf: "{{ item.value }}"
+        name: "{{ item.key }}"
+        datacenter: "{{ vc_datacenter }}"
+        datastore: "{{ vc_datastore }}"
+        validate_certs: False
+        wait_for_ip_address: false
+        power_on: false
+      delegate_to: localhost
+      loop: "{{ more_ovas|dict2items }}"
+
+    - debug:
+        msg:
+         - "Additioanl OVAs all done."

@@ -25,6 +25,11 @@ vc_name: "PC-SS"                         #EDIT this
 vc_datacenter: "123456"                  #EDIT this
 vc_datastore: "default-container-1234567890" #EDIT this
 
+# Additional OVAs to deploy
+more_ovas: 
+  centos7: ~/Downloads/centOS7-tpl.ova 
+  win2019:  ~/Downloads/Windows-2019-tpl.ova 
+
 # Static IP details for newly deployed PC
 eth0_IPADDR: "{{ pc_new_ip }}"
 eth0_PREFIX: "26"                        #EDIT this

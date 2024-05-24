@@ -1,4 +1,4 @@
- Edit these variables accordingto your needs / any standard HPOCs deployed
+# Edit these variables accordingto your needs / any standard HPOCs deployed
 # Nutanix PE cluster details
 nutanix_host_pe: "10.99.2.3"              #EDIT this
 nutanix_username_pe: "nutanix"           #EDIT this

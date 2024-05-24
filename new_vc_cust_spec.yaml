@@ -1,0 +1,97 @@
+---
+# hardev.sanghera@nutanix.com May 2024
+- name: Create new Windows Customization Specification on vCenter
+  hosts: localhost
+  gather_facts: False
+  vars_files:
+    - vars/vars.yaml
+
+  tasks:
+
+    - name: Get vAPI session id
+      local_action:
+          module: uri
+          url: "https://{{ vc_hostname }}/api/session"
+          method: POST
+          url_username: "{{ vc_username }}"
+          url_password: "{{ vc_password }}"
+          validate_certs: no
+          return_content: yes
+          status_code: 201
+          body_format: json
+          body: |
+            {
+            }
+          force_basic_auth: yes
+      check_mode: false
+      register: result
+
+    - debug:
+        msg:
+         - "session id is :{{ result.vmware_api_session_id }}"
+
+    - set_fact:
+        v_sess_id: "{{ result.vmware_api_session_id }}"
+
+    - name: Create the new customization spec
+      local_action:
+          module: uri
+          url: "https://{{ vc_hostname }}/api/vcenter/guest/customization-specs"
+          method: POST
+          headers:
+             vmware-api-session-id: "{{ v_sess_id }}"
+          validate_certs: no
+          return_content: yes
+          status_code: 201
+          body_format: json
+          body: |
+            {
+              "name": "{{ vc_cust_spec_name }}",
+                "description": "Bootcamp: Customization Specification for Windows Server 2019",
+                "spec": {
+                  "interfaces": [
+                    {
+                      "adapter": {
+                        "ipv4": {
+                          "type": "DHCP"
+                        },
+                        "windows": {}
+                      }
+                    }
+                  ],
+                  "global_DNS_settings": {},
+                  "configuration_spec": {
+                    "windows_config": {
+                      "reboot": "REBOOT",
+                      "sysprep": {
+                        "domain": {
+                          "workgroup": "WORKGROUP",
+                          "type": "WORKGROUP"
+                        },
+                        "gui_run_once_commands": [],
+                        "user_data": {
+                          "computer_name": {
+                            "type": "VIRTUAL_MACHINE"
+                          },
+                          "full_name": "BOOTCAMP",
+                          "product_key": "",
+                          "organization": "BOOTCAMP.ORG"
+                        },
+                        "gui_unattended": {
+                          "password": "{{ cspec_admin_pw }}",
+                          "auto_logon_count": 1,
+                          "auto_logon": true,
+                          "time_zone": 85
+                        }
+                      }
+                    }
+                  }
+                }
+            }
+          force_basic_auth: no
+      check_mode: false
+      register: result
+
+    - debug:
+        msg:
+         - "New customization specification all done."

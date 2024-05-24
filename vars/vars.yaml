@@ -1,29 +1,31 @@
-# Edit these variables accordingto your needs / any standard HPOCs deployed
+ Edit these variables accordingto your needs / any standard HPOCs deployed
 # Nutanix PE cluster details
-nutanix_host_pe: "10.N.N.N"              #EDIT this
+nutanix_host_pe: "10.99.2.3"              #EDIT this
 nutanix_username_pe: "nutanix"           #EDIT this
 nutanix_password_pe: "password"          #EDIT this
 
 # For the PC to be deployed
-pc_new_ip: "10.N.N.N"                     #EDIT this
+pc_new_ip: "10.99.2.15"                     #EDIT this
 ans_user: "nutanix"                       #freshly deployed PC userid
-ans_password: "password"                  #freshly deployed PC password
+ans_password: "nutanix/4u"                  #freshly deployed PC password
 new_pc_admin_pw : "password"              #EDIT this
-ldap_url: "ldaps://10.N.N.N:636"          #EDIT this
+ldap_url: "ldaps://10.99.9.9:636"          #EDIT this
 ldap_password: "password"                #EDIT this
 ldap_name: "lab"                          #EDIT this
 ldap_domain: "lab.local"                  #EDIT this
-ldap_username: "admin@{{ ldap_domain }}"  #EDIT this
+ldap_username: "administrator@{{ ldap_domain }}"  #EDIT this
 ldap_pw: "password"                     #EDIT this
 
 # vCenter Access details
-vc_hostname: "10.N.N.N"                  #EDIT this
-vc_username: "vcuser@dom.local"          #EDIT this
+vc_hostname: "10.99.2.2"                  #EDIT this
+vc_username: "User@dc.local"          #EDIT this
 vc_password: "password"                  #EDIT this
 vc_ovf: ~/Downloads/pc.2022.6.0.10.ova   #EDIT this
 vc_name: "PC-SS"                         #EDIT this
-vc_datacenter: "123456"                  #EDIT this
-vc_datastore: "default-container-1234567890" #EDIT this
+vc_datacenter: "299299"                 #EDIT this
+vc_datastore: "default-container-99999999999999" #EDIT this
+vc_cust_spec_name: "bootcamp_win_2019_cspec"
+cspec_admin_pw: "password"
 
 # Additional OVAs to deploy
 more_ovas: 
@@ -32,9 +34,9 @@ more_ovas:
 
 # Static IP details for newly deployed PC
 eth0_IPADDR: "{{ pc_new_ip }}"
-eth0_PREFIX: "26"                        #EDIT this
-eth0_GATEWAY: "10.N.N.N"                 #EDIT this
-eth0_DNS1: "10.N.N.N"                    #EDIT this
+eth0_PREFIX: "22"                        #EDIT this
+eth0_GATEWAY: "10.99.2.1"                 #EDIT this
+eth0_DNS1: "10.99.2.2"                    #EDIT this
 
 # Do not edit below
 sdir: "scratch"                                          
